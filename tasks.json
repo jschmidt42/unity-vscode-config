@@ -1,0 +1,207 @@
+/*
+${workspaceRoot} the path of the folder opened in VS Code
+${workspaceRootFolderName} the name of the folder opened in VS Code without any slashes (/)
+${file} the current opened file
+${relativeFile} the current opened file relative to workspaceRoot
+${fileBasename} the current opened file's basename
+${fileBasenameNoExtension} the current opened file's basename without the extension
+${fileDirname} the current opened file's dirname
+${fileExtname} the current opened file's extension
+${cwd} the task runner's current working directory on startup
+*/
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "0.1.0",
+    "tasks": [
+        {
+			"taskName": "Build Editor",
+			"isBuildCommand": true,
+			"command": "${workspaceRoot}/jam",
+			"isShellCommand": true,
+			"showOutput": "always",
+			"suppressTaskName": true,
+			"osx": {
+				"args": ["MacEditor", "-sCONFIG=debug"]
+			},
+			"windows": {
+				"args": ["Editor", "-sCONFIG=debug"]
+			},
+			"problemMatcher": [
+				{
+                	"owner": "cpp",
+                	"fileLocation": ["absolute"],
+                	"pattern": {
+                	    "regexp": "^(/.*):(\\d+):(\\d+):\\s+(fatal\\s+)?(warning|error):\\s+(.*)$",
+                	    "file": 1,
+                	    "line": 2,
+                	    "column": 3,
+                	    "severity": 5,
+                	    "message": 6
+                	}
+            	},
+				{
+                	"owner": "cpp",
+                	"fileLocation": ["absolute"],
+                	"pattern": {
+                	    "regexp": "^fatal\\s+(error):\\s+(.*)$",
+						"file": 1,
+						"line": 1,
+                	    "severity": 1,
+                	    "message": 2
+                	}
+            	},
+				{
+                	"owner": "cpp",
+                	"fileLocation": ["relative", "${workspaceRoot}"],
+                	"pattern": {
+                	    "regexp": "^(.*):(\\d+):(\\d+):\\s+(fatal\\s+)?(warning|error):\\s+(.*)$",
+                	    "file": 1,
+                	    "line": 2,
+                	    "column": 3,
+                	    "severity": 5,
+                	    "message": 6
+                	}
+            	},
+				{
+                	"owner": "cs",
+                	"fileLocation": ["absolute"],
+                	"pattern": {
+                	    "regexp": "^(([a-zA-Z]:)?/.*)\\((\\d+),(\\d+)\\):\\s+(warning|error)\\s+.*:\\s+(.*)$",
+                	    "file": 1,
+                	    "line": 3,
+                	    "column": 4,
+                	    "severity": 5,
+                	    "message": 6
+                	}
+            	},
+				{
+                	"owner": "cs",
+                	"fileLocation": ["relative", "${workspaceRoot}"],
+                	"pattern": {
+                	    "regexp": "^(.*)\\((\\d+),(\\d+)\\):\\s+(warning|error)\\s+.*:\\s+(.*)$",
+                	    "file": 1,
+                	    "line": 2,
+                	    "column": 3,
+                	    "severity": 4,
+                	    "message": 5
+                	}
+            	},
+				{
+                	"owner": "cpp",
+                	"fileLocation": ["absolute"],
+                	"pattern": {
+                	    "regexp": "^([a-zA-Z]:.*)\\((\\d+)\\)\\s*:\\s+(fatal\\s+)?(warning|error)\\s+(.*)$",
+                	    "file": 1,
+                	    "line": 2,
+                	    "severity": 4,
+                	    "message": 5
+                	}
+            	}
+			]
+		},
+        {
+            "taskName": "tsw",
+            "command": "node",
+            "args": [
+                "./node_modules/tspw/bin/tspw",
+                "--root", ".",
+                "--tsc", "./node_modules/typescript/bin/tsc"
+            ],
+            "showOutput": "silent",
+            "isShellCommand": true,
+            "isBackground": true,
+            "options": {
+                "cwd": "${workspaceRoot}/editor"
+            }
+        },
+        {
+            "taskName": "build ts",
+            "command": "node",
+            "args": [
+                "./node_modules/tspw/bin/tspw",
+                "--compile", "--root", ".",
+                "--tsc", "./node_modules/typescript/bin/tsc",
+                "--tsc-args", "\"--listEmittedFiles\""
+            ],
+            "showOutput": "silent",
+            "isShellCommand": true,
+            "isBackground": true,
+            "options": {
+                "cwd": "${workspaceRoot}/editor"
+            }
+        },
+        {
+            "taskName": "build all",
+            "command": "ruby",
+            "args": ["make.rb"],
+            "isBuildCommand": true
+        },
+        {
+            "taskName": "check-for-reviewers (develop)",
+            "command": "ruby",
+            "args": ["./tools/command_line/check-for-reviewers.rb"],
+            "isShellCommand": true
+        },
+        {
+            "taskName": "check-for-reviewers (release)",
+            "command": "ruby",
+            "args": ["./tools/command_line/check-for-reviewers.rb", "--base", "origin/release/1.9.0"],
+            "isShellCommand": true
+        },
+        {
+            "taskName": "lint",
+            "command": "ruby",
+            "args": ["./tools/command_line/lint.rb", "-i"],
+            "showOutput": "always",
+            "isShellCommand": true
+        },
+        {
+            "taskName": "jshint",
+            "command": "ruby",
+            "args": ["./tools/command_line/js-hint.rb"],
+            "showOutput": "always"
+        },
+        {
+            "taskName": "code stats",
+            "command": "cloc",
+            "args": [
+                //"./core/", "./editor/", "./runtime/", "./cmake/",
+                "--exclude-dir", "3rdparty,node_modules,external,build,artifacts", "."
+                //"--exclude-lang", "F#,XAML,Windows Module Definition,Qt,INI,Visualforce Component",
+                //"--fullpath", "--not-match-d=runtime/lua", "--not-match-f=(dlmalloc|disclaimer)",
+                //"--vcs=hg"
+                //, "--by-file"
+            ],
+            "showOutput": "always"
+        },
+        {
+            "taskName": "build editor",
+            "command": "C:/Program Files (x86)/MSBuild/14.0/Bin/msbuild",
+            "args": [
+                "${workspaceRoot}/build/editor/win64/stingray_editor_win64.sln",
+                "/p:Configuration=Dev;GenerateFullPaths=true;WarningLevel=0",
+                "/maxcpucount",
+                "/verbosity:minimal"
+            ],
+            "echoCommand": true,
+            "isBuildCommand": true,
+            "showOutput": "always",
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "taskName": "build engine",
+            "command": "C:/Program Files (x86)/MSBuild/14.0/Bin/msbuild",
+            "args": [
+                "${workspaceRoot}/build/engine/win64/stingray_engine_win64.sln",
+                "/p:Configuration=Dev;GenerateFullPaths=true;WarningLevel=0",
+                "/maxcpucount",
+                "/verbosity:minimal"
+            ],
+            "echoCommand": true,
+            "isBuildCommand": true,
+            "showOutput": "always",
+            "problemMatcher": "$msCompile"
+        }
+    ]
+}

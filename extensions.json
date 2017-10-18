@@ -1,0 +1,11 @@
+{
+	// See http://go.microsoft.com/fwlink/?LinkId=827846
+	// for the documentation about the extensions.json format
+	"recommendations": [
+		"vadimcn.vscode-lldb",
+        "Unity.unity-debug",
+        "ms-vscode.cpptools",
+        "ms-vscode.csharp",
+        "ms-vscode.mono-debug"
+	]
+}

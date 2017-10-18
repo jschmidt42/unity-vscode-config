@@ -1,0 +1,46 @@
+// Use IntelliSense to learn about possible Stingray debug attributes.
+// Hover to view descriptions of existing attributes.
+{
+    "version": "0.2.0",
+    "configurations": [
+		{
+			"name": "C++ Attach (LLDB)",
+			"type": "lldb",
+			"request": "attach",
+			"osx": {
+				"program": "${workspaceRoot}/build/MacEditor/Unity.app/Contents/MacOS/Unity"
+			},
+			"windows": {
+	   			"program": "${workspaceRoot}\\build\\WindowsEditor\\Unity.exe"
+			}
+		},
+        	{
+			"name": "C++ Launch (LLDB)",
+			"type": "lldb",
+			"request": "launch",
+			"osx": {
+				"program": "${workspaceRoot}/build/MacEditor/Unity.app/Contents/MacOS/Unity"
+			},
+			"windows": {
+	   			"program": "${workspaceRoot}\\build\\WindowsEditor\\Unity.exe"
+			},
+			"args": [],
+			"stopOnEntry": false,
+			"cwd": "${workspaceRoot}"
+		},
+		{
+   			"name": "C++ Launch (Windows)",
+   			"type": "cppvsdbg",
+   			"request": "launch",
+   			"program": "${workspaceRoot}\\build\\WindowsEditor\\Unity.exe",
+   			"externalConsole": false,
+   			"visualizerFile": "${workspaceRoot}/Runtime/Core/Containers/containers.natvis",
+			"cwd": "${workspaceRoot}"
+		},
+		{
+			"name": "Unity Editor",
+			"type": "unity",
+			"request": "launch"
+		}
+    ]
+}
