@@ -8,41 +8,52 @@
     //"tslint.configFile": "editor/tslint.json",
 
     "files.exclude": {
-        "tests.log": true,
+        "*.bsi": true,
+        "*.diff": true,
+        "*.fbx": true,
+        "*.font": true,
         "*.log": true,
         "*.min.js": true,
         "*.orig": true,
-        "*.bsi": true,
-        "*.font": true,
         "*.svg": true,
-        "sqlite3.c": true,
-        "disclaimer*.html": true,
-        "*.diff": true,
         "*.user": true,
-        "AssemblyInfo.cs": true,
-        "*.fbx": true,
-        "**/.git": true,
-        "**/.hglf": true,
-        "**/.svn": true,
-        "**/build": true,
-        "**/output": true,
-        "**/packages": true,
+
         "**/.DS_Store": true,
+        "**/.git": true,
+        "**/.hg": true,
+        "**/.hglf": true,
         "**/.nuget": true,
-        "**/obj": true,
-        "**/bin": true,
-        "**/Debug": true,
-        "**/Release": true,
-        "**/VSCode-win32-*": true,
+        "**/.svn": true,
+        "**/.vs": true,
         "**/*.js.map": true,
         "**/*.js": { "when": "$(basename).ts" },
+        "**/bin": true,
+        "**/build": true,
+        "**/Debug": true,
+        "**/obj": true,
+        "**/output": true,
+        "**/packages": true,
+        "**/Release": true,
+        "**/VSCode-win32-*": true,
+
+        "AssemblyInfo.cs": true,
+        "disclaimer*.html": true,
+        "sqlite3.c": true,
+        "tests.log": true,
+
+        "**/builds": true,
+        "**/External": true,
+        "**/Library": true,
 
         "build": true,
         "Src": true,
-        "External": true,
         "Projects": false,
         "Tools": false,
-        "artifacts/[^g]*": true
+        "Tests": false,
+        "artifacts/[^g]*": true,
+
+        "Tests/**/Packages": true,
+        "Editor/Tools": true
     },
 
     "search.exclude": {
@@ -55,19 +66,24 @@
         "**/3rdparty": true,
         "**/bower_components": true,
         ".vscode": true,
-        "Tests": true
+
+        "Tools": true,
+        "Documentation": true
     },
 
     "files.associations": {
+        "__functional_03": "cpp",
+        "array": "cpp",
+        "bindings": "cpp",
+        "functional": "cpp",
         "qdesktopservices": "cpp",
         "qdir": "cpp",
         "qlocalserver": "cpp",
         "regex": "cpp",
+        "rope": "cpp",
+        "uss": "css",
+        "uxml": "xml",
         "xiosbase": "cpp",
-        "array": "cpp",
-        "xutility": "cpp",
-        "*.uss": "css",
-        "*.uxml": "xml",
         "xml_attr.c": "cpp",
         "xml_cdata.c": "cpp",
         "xml_comment.c": "cpp",
@@ -76,9 +92,6 @@
         "xml_node.c": "cpp",
         "xml_processing_instruction.c": "cpp",
         "xml_text.c": "cpp",
-        "__functional_03": "cpp",
-        "functional": "cpp",
-        "rope": "cpp",
-        "bindings": "cpp"
+        "xutility": "cpp"
     }
 }
